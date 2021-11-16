@@ -1,42 +1,38 @@
-# from django.contrib.auth import get_user_model
-# from rest_framework import serializers
+from django.contrib.auth import get_user_model
+from rest_framework import serializers
+
+from .models import *
+
+User = get_user_model()
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id",)
+
+
+class NoteSerializer(serializers.ModelSerializer):
+    author = UserSerializer()
+
+    class Meta:
+        model = Note
+        fields = ("id", "created_at", "author", "url", "topic", "body", "parent")
+
+
+class NoteCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Note
+        # author и url будут сами проставляться
+        fields = ("topic", "body", "parent")
+
+
+class NoteUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Note
+        fields = ("id", "created_at", "topic", "body", "parent")
+        read_only_fields = ("id", "created_at", "parent")
+
+
 #
-# from .models import Basket, Status
 #
-# User = get_user_model()
-#
-#
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('id', 'username', 'email')
-#
-#
-# class StatusSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Status
-#         fields = ('code', 'name')
-#
-#
-# class BasketCreateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Basket
-#         fields = ('name', 'delivery_address', 'favourite')
-#
-#
-# class BasketUpdateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Basket
-#         fields = ('id', 'created_at', 'name', 'delivery_address', 'favourite')
-#         read_only_fields = ('id', 'created_at', )
-#
-#
-# class BasketSerializer(serializers.ModelSerializer):
-#     owner = UserSerializer()
-#     status = StatusSerializer()
-#
-#     class Meta:
-#         model = Basket
-#         fields = ('id', 'created_at', 'name',
-#                   'delivery_address', 'favourite', 'status',
-#                   'owner')

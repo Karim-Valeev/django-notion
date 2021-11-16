@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin, UserManager as DjangoUserManager
+from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import UserManager as DjangoUserManager
 from django.db import models
 
 from .base import BaseModel
@@ -23,10 +24,15 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     # Чтобы модель работала нормально нужно для нее переопределить UserManager
     objects = UserManager()
 
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, null=False, blank=False, verbose_name="Email")
+    username = models.CharField(max_length=25, null=False, blank=False, default="Unknown", verbose_name="Username")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
+    @property
+    def is_staff(self):
+        return self.is_superuser
 
     class Meta:
         db_table = "profile"
