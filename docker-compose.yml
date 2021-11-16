@@ -6,9 +6,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: no
-      POSTGRES_USER: no
-      POSTGRES_PASSWORD: no
+      POSTGRES_DB: nt
+      POSTGRES_USER: nt
+      POSTGRES_PASSWORD: nt
     volumes:
       - "db:/var/lib/postgresql/data/"
 
