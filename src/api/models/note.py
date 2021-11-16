@@ -6,6 +6,7 @@ from .user import User
 
 class Note(BaseModel):
     author = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE, verbose_name="Author")
+    # У URLField как будто где-то дефолтное значени "" стоит
     url = models.URLField(max_length=500, null=False, blank=False, verbose_name="URL")
     topic = models.CharField(max_length=500, null=False, blank=False, verbose_name="Topic")
     body = models.TextField(null=True, blank=True, verbose_name="Body")
