@@ -1,7 +1,7 @@
-POST http://127.0.0.1:8000/api/token/
+POST https://django-notion.herokuapp.com/api/token/
 Content-Type: application/json
 
-{"email": "karim.valeev.i@yandex.com", "password": "admin"}
+{"email": "karim.valeev.i@yandex.com", "password": "no.tion.2021"}
 
 ###
 GET http://127.0.0.1:8000/notes/8/

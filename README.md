@@ -1,5 +1,7 @@
 # REST API backend for react-notion project
 
+## Link to the [site](https://django-notion.herokuapp.com)
+
 ## Запуск
 
 - `python3 -m venv venv` - создать виртуальное окружение

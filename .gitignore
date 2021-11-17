@@ -4,6 +4,8 @@ publications_source
 src/staticfiles/
 src/test.py
 
+requests.http
+
 ### Django ###
 *.log
 *.pot
