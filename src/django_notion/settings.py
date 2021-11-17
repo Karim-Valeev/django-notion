@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-)1mhy1c$@axv0shb&j6(p0q@-2p+ot+j8wmk*_okxt*b_#*x**
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "django-notion.herokuapp.com"]
 
 
 # Application definition
