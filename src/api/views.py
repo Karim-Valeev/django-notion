@@ -2,44 +2,35 @@ from api.models import Note
 from api.serializers import NoteCreateSerializer
 from api.serializers import NoteSerializer
 from api.serializers import NoteUpdateSerializer
+from django.http import Http404
+from rest_framework import filters
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.permissions import BasePermission
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-# from api.serializers import BasketSerializer, BasketCreateSerializer, BasketUpdateSerializer
-# from main.models import Basket, Status
-
-
-# todo поменять автора расписанного на просто айди
-# todo исправить создание чтобы автора сделать не предлагал
-# todo сделать нормальну. рест апи авторизацию
-# todo добавить update по полям и целый правильный
-
 
 @api_view(["GET"])
-def test_api_view(request):
+def check_api_view(request):
     """Method for checking api"""
-    return Response({"status": "ok"})
+    content = {"status": "ok"}
+    return Response(content, status=status.HTTP_200_OK)
 
 
 class NoteChangeOnlyForOwnerPermission(BasePermission):
-    # Todo добавь логику апи ключа
     def has_object_permission(self, request, view, obj):
-        if not request.user.is_authenticated:
-            return False
-        return obj.author_id == request.user.id
+        return obj.author.id == request.user.id
 
 
-#
-#
-# # ModelViewSet include a lot of useful mixins such as List, Generic, CRUD
 class NoteViewSet(ModelViewSet):
-    """Baskets"""
+    """Notes"""
 
-    permission_classes = [NoteChangeOnlyForOwnerPermission]
+    permission_classes = [IsAuthenticated, NoteChangeOnlyForOwnerPermission]
     serializer_class = NoteSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["topic"]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -50,8 +41,10 @@ class NoteViewSet(ModelViewSet):
 
     def perform_create(self, serializer: NoteSerializer):
         author = self.request.user
-        # url = "https://www.django-rest-framework.org/"+self.
-        serializer.save(author=author)
+        instance: Note = serializer.save(author=author)
+        url = f"http://127.0.0.1:8000/notes/{instance.id}"
+        instance.url = url
+        instance.save()
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -64,12 +57,4 @@ class NoteViewSet(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        # qs = Note.objects.select_related('owner', 'status')
-        qs = Note.objects.all()
-        if user.is_authenticated:
-            qs = qs.filter(author=user)
-        return qs
-
-    def list(self, request, *args, **kwargs):
-        """Выводит список корзин"""
-        return super(NoteViewSet, self).list(request, *args, **kwargs)
+        return Note.objects.filter(author=user)

@@ -10,6 +10,6 @@ router = SimpleRouter()
 router.register("notes", NoteViewSet, "notes")
 
 urlpatterns = [
-    path("", test_api_view),
+    path("", check_api_view),
     *router.urls,
 ]

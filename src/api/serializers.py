@@ -7,6 +7,7 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    # Если хочешь список всех зависимых моделей надо особое поле PrimaryKeyRelatedField()
     class Meta:
         model = User
         fields = ("id",)
@@ -23,7 +24,6 @@ class NoteSerializer(serializers.ModelSerializer):
 class NoteCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
-        # author и url будут сами проставляться
         fields = ("topic", "body", "parent")
 
 
