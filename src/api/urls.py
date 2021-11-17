@@ -11,5 +11,6 @@ router.register("notes", NoteViewSet, "notes")
 
 urlpatterns = [
     path("", check_api_view),
+    path("register/", UserCreate.as_view()),
     *router.urls,
 ]

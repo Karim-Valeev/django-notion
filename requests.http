@@ -1,17 +1,17 @@
 POST https://django-notion.herokuapp.com/api/token/
 Content-Type: application/json
 
-{"email": "karim.valeev.i@yandex.com", "password": "no.tion.2021"}
+{"email": "karim.valeev.i@gmail.com", "password": "no.tion.2021"}
 
 ###
-GET http://127.0.0.1:8000/notes/8/
+GET https://django-notion.herokuapp.com/notes/
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM3MTExNTExLCJqdGkiOiI1MWM0NzRmODhmMWQ0YjU2YmE1NDZlZmQ5ZWI3MTUwZiIsInVzZXJfaWQiOjJ9.HEbbcCzLN1yEg9xl0NlKfdgbG7BPGbzQ0AhrHu8RLSs
+Authorization: Bearer token...
 
 ###
-POST http://127.0.0.1:8000/notes/
+POST https://django-notion.herokuapp.com/notes/
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM3MTEwOTg5LCJqdGkiOiI0MWU4YTEyNjhmMDY0MTdjODc4MjIwODU4N2MxNzI4MyIsInVzZXJfaWQiOjJ9.hBbQNaG4UWDAEW7KOMcKF7UsN9e3GE8cWzYLUvTnO8w
+Authorization: Bearer
 
 {
   "topic":"Проверочная заметка",
@@ -23,7 +23,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiY
 ###
 PUT http://127.0.0.1:8000/notes/8/
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM3MTEwOTg5LCJqdGkiOiI0MWU4YTEyNjhmMDY0MTdjODc4MjIwODU4N2MxNzI4MyIsInVzZXJfaWQiOjJ9.hBbQNaG4UWDAEW7KOMcKF7UsN9e3GE8cWzYLUvTnO8w
+Authorization: Bearer
 
 {
   "topic":"Проверочная заметка 8"
@@ -32,6 +32,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ###
 DELETE http://127.0.0.1:8000/notes/8/
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM3MTExNDQ4LCJqdGkiOiI3M2E4Y2Y1N2M0M2Y0OGQ4OGU4NDRiOTdiNzMzYmI1NSIsInVzZXJfaWQiOjF9.ehQtjbD5MLcz2bHsrVsuNQ9qeBOq_d62dvBViE
+Authorization: Bearer
 
 ###

@@ -26,7 +26,7 @@ class UserManager(DjangoUserManager):
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     # Чтобы модель работала нормально нужно для нее переопределить UserManager
-    objects = UserManager()
+    objects: UserManager = UserManager()
 
     email = models.EmailField(unique=True, null=False, blank=False, verbose_name="Email")
     username = models.CharField(max_length=25, null=False, blank=False, default="Unknown", verbose_name="Username")

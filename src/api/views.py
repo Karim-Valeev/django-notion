@@ -1,11 +1,15 @@
 from api.models import Note
+from api.models import User
 from api.serializers import NoteCreateSerializer
 from api.serializers import NoteSerializer
 from api.serializers import NoteUpdateSerializer
+from api.serializers import UserCreateSerializer
 from django.http import Http404
 from rest_framework import filters
+from rest_framework import generics
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny
 from rest_framework.permissions import BasePermission
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -17,6 +21,12 @@ def check_api_view(request):
     """Method for checking api"""
     content = {"status": "ok"}
     return Response(content, status=status.HTTP_200_OK)
+
+
+class UserCreate(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserCreateSerializer
+    permission_classes = (AllowAny,)
 
 
 class NoteChangeOnlyForOwnerPermission(BasePermission):
