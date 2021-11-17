@@ -86,10 +86,10 @@ WSGI_APPLICATION = "django_notion.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
-        "NAME": os.environ.get("DB_NAME", "nt"),
-        "USER": os.environ.get("DB_USER", "nt"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "nt"),
-        "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
+        "NAME": os.environ.get("DB_NAME", "d1q3soni46cnhk"),
+        "USER": os.environ.get("DB_USER", "xzcyhztrvjxywf"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "c17ec8bffff8d963a6ea2019e1af5ce7ef6916fcde133bd93c47f1f0c5e8f20a"),
+        "HOST": os.environ.get("DB_HOST", "ec2-3-229-166-245.compute-1.amazonaws.com"),
         "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
