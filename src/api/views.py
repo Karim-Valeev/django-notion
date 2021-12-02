@@ -42,7 +42,7 @@ class NoteChangeOnlyForOwnerPermission(BasePermission):
 class NoteViewSet(ModelViewSet):
     """Notes"""
 
-    permission_classes = [AllowAny, NoteChangeOnlyForOwnerPermission]
+    permission_classes = [IsAuthenticated, NoteChangeOnlyForOwnerPermission]
     serializer_class = NoteSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ["topic"]

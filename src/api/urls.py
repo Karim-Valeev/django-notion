@@ -10,8 +10,8 @@ router.register("notes", NoteViewSet, "notes")
 # .../notes/id
 
 urlpatterns = [
-    path("check/", check_api_view),
-    path("register/", UserCreate.as_view()),
+    path("check/", check_api_view, name="api-check"),
+    path("register/", UserCreate.as_view(), name="api-register"),
     path("token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
     *router.urls,
