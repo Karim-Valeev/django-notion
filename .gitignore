@@ -3,7 +3,6 @@ publications_source
 .env
 src/staticfiles/
 src/test.py
-
 requests.http
 
 ### Django ###
