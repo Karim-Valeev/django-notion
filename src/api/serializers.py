@@ -6,13 +6,6 @@ from .models import *
 User = get_user_model()
 
 
-class UserSerializer(serializers.ModelSerializer):
-    # Если хочешь список всех зависимых моделей надо особое поле PrimaryKeyRelatedField()
-    class Meta:
-        model = User
-        fields = ("id",)
-
-
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -28,8 +21,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class NoteSerializer(serializers.ModelSerializer):
-    author = UserSerializer()
-
     class Meta:
         model = Note
         fields = ("id", "created_at", "author", "url", "topic", "body", "parent")

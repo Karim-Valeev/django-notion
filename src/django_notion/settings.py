@@ -14,6 +14,7 @@ from datetime import timedelta
 from os.path import join
 from pathlib import Path
 
+import dj_database_url
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
@@ -33,6 +34,7 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "django-notion.herokuapp.com"]
 
+DEPLOY_URL = "https://django-notion.herokuapp.com/"
 
 # Application definition
 
@@ -86,14 +88,16 @@ WSGI_APPLICATION = "django_notion.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
-        "NAME": os.environ.get("DB_NAME", "d1q3soni46cnhk"),
-        "USER": os.environ.get("DB_USER", "xzcyhztrvjxywf"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "c17ec8bffff8d963a6ea2019e1af5ce7ef6916fcde133bd93c47f1f0c5e8f20a"),
-        "HOST": os.environ.get("DB_HOST", "ec2-3-229-166-245.compute-1.amazonaws.com"),
-        "PORT": os.environ.get("DB_PORT", "5432"),
+        "ENGINE": os.environ.get("DB_ENGINE"),
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
     }
 }
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES["default"].update(db_from_env)
 
 
 # Password validation
@@ -189,7 +193,7 @@ STATICFILES_DIR = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-# LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = "/"
 
 MEDIA_URL = "/uploaded_files/"
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "src", "uploaded_files")

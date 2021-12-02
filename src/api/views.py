@@ -4,10 +4,11 @@ from api.serializers import NoteCreateSerializer
 from api.serializers import NoteSerializer
 from api.serializers import NoteUpdateSerializer
 from api.serializers import UserCreateSerializer
-from django.http import Http404
+from django_notion import settings
 from rest_framework import filters
 from rest_framework import generics
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import BasePermission
@@ -28,6 +29,10 @@ class UserCreate(generics.CreateAPIView):
     serializer_class = UserCreateSerializer
     permission_classes = (AllowAny,)
 
+    def perform_create(self, serializer):
+        instance: User = serializer.save()
+        Token.objects.create(user=instance)
+
 
 class NoteChangeOnlyForOwnerPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -37,7 +42,7 @@ class NoteChangeOnlyForOwnerPermission(BasePermission):
 class NoteViewSet(ModelViewSet):
     """Notes"""
 
-    permission_classes = [IsAuthenticated, NoteChangeOnlyForOwnerPermission]
+    permission_classes = [AllowAny, NoteChangeOnlyForOwnerPermission]
     serializer_class = NoteSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ["topic"]
@@ -52,7 +57,7 @@ class NoteViewSet(ModelViewSet):
     def perform_create(self, serializer: NoteSerializer):
         author = self.request.user
         instance: Note = serializer.save(author=author)
-        url = f"http://127.0.0.1:8000/notes/{instance.id}"
+        url = f"{settings.DEPLOY_URL}{instance.id}"
         instance.url = url
         instance.save()
 

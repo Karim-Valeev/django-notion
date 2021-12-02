@@ -1,16 +1,18 @@
 from django.urls import path
-from django.urls import re_path
-from rest_framework.routers import DefaultRouter
 from rest_framework.routers import SimpleRouter
+from rest_framework_simplejwt import views as jwt_views
 
 from .views import *
 
-
 router = SimpleRouter()
 router.register("notes", NoteViewSet, "notes")
+# .../notes
+# .../notes/id
 
 urlpatterns = [
-    path("", check_api_view),
+    path("check/", check_api_view),
     path("register/", UserCreate.as_view()),
+    path("token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
     *router.urls,
 ]
